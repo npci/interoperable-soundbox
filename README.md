@@ -1,118 +1,81 @@
 Payment Confirmation Device Functional Specification V1.3
 
 **Table of Contents**
+# Table of Contents
 
-[1 Preliminary Declarations 4](#_Toc227847015)
+- [Preliminary Declarations](#preliminary-declarations)
+  - [Disclaimer](#disclaimer)
+  - [Foreword](#foreword)
 
-[1.1 Disclaimer 4](#_Toc227847016)
+- [Scope](#scope)
 
-[1.2 Foreword 4](#_Toc227847017)
+- [Terminologies](#terminologies)
 
-[2 Scope 4](#_Toc227847018)
+- [Generals](#generals)
+  - [Design Principles](#design-principles)
 
-[3 Terminologies 5](#_Toc227847019)
+- [Operational Ratings](#operational-ratings)
+  - [Latency](#latency)
+  - [Audio Performance](#audio-performance)
+  - [Connectivity](#connectivity)
 
-[4 Generals 6](#_Toc227847020)
+- [Connection and Transport](#connection-and-transport)
 
-[4.1 Design Principles 6](#_Toc227847021)
+- [Device Classifications](#device-classifications)
+  - [By Purpose](#by-purpose)
+  - [By Connectivity](#by-connectivity)
+  - [By Power](#by-power)
 
-[5 Operational Ratings 6](#_Toc227847022)
+- [Marking and Traceability](#marking-and-traceability)
 
-[5.1 Latency 6](#_Toc227847023)
+- [Functional Requirements](#functional-requirements)
+  - [Host Model](#host-model)
+  - [Ordering and Idempotency](#ordering-and-idempotency)
+  - [Audio Confirmation](#audio-confirmation)
+  - [Physical Buttons](#physical-buttons)
+  - [Fault Recovery](#fault-recovery)
 
-[5.2 Audio Performance 6](#_Toc227847024)
+- [Hardware Requirements](#hardware-requirements)
 
-[5.3 Connectivity 6](#_Toc227847025)
+- [Software Requirements](#software-requirements)
+  - [Operating System](#operating-system)
+  - [OTA Updates](#ota-updates)
+  - [Protocols and APIs](#protocols-and-apis)
+  - [Sound Quality](#sound-quality)
 
-[6 Connection and Transport 7](#_Toc227847026)
+- [Security Requirements](#security-requirements)
+  - [Secure Boot](#secure-boot)
+  - [Cryptographic Profiles](#cryptographic-profiles)
+  - [Key Custody](#key-custody)
 
-[7 Device Classifications 7](#_Toc227847027)
+- [Minimum API Support](#minimum-api-support)
 
-[7.1 By Purpose 7](#_Toc227847028)
+- [QUALITY & CONFORMITY OF PRODUCTION (COP)](#quality--conformity-of-production-cop)
+  - [COP Metrics](#cop-metrics)
+  - [Non-Conformity Classes and Corrective Action (CAPA)](#non-conformity-classes-and-corrective-action-capa)
 
-[7.2 By Connectivity 7](#_Toc227847029)
+- [Annex A - Normative Conformance Matrix](#annex-a---normative-conformance-matrix)
 
-[7.3 By Power 7](#_Toc227847030)
+- [ANNEX B - Manufacturing and Quality Checklists (Informative)](#annex-b---manufacturing-and-quality-checklists-informative)
+  - [Bank / Fintech Pre-Order Checklist](#bank--fintech-pre-order-checklist)
+  - [Pre-Production Checklist (Manufacturer)](#pre-production-checklist-manufacturer)
+  - [Sampling Plan and Ongoing Tests](#sampling-plan-and-ongoing-tests)
+  - [Traceability and Serialization](#traceability-and-serialization)
+  - [PKI and Key Management in Manufacturing](#pki-and-key-management-in-manufacturing)
+  - [OTA Signing and Release Management](#ota-signing-and-release-management)
+  - [Field Surveillance and Audit Frequency](#field-surveillance-and-audit-frequency)
 
-[8 Marking and Traceability 7](#_Toc227847031)
+- [ANNEX C (Informative) - Reference Architecture Design](#annex-c-informative---reference-architecture-design)
+  - [Hardware Reference](#hardware-reference)
+  - [Key interconnects](#key-interconnects)
+  - [Firmware reference (tasks & modules)](#firmware-reference-tasks--modules)
+  - [Secure Boot & Attestation](#secure-boot--attestation)
+  - [Provisioning & QR↔Device mapping](#provisioning--qrdevice-mapping)
+  - [Mechanical and serviceability](#mechanical-and-serviceability)
 
-[9 Functional Requirements 8](#_Toc227847032)
-
-[9.1 Host Model 8](#_Toc227847033)
-
-[9.2 Ordering and Idempotency 8](#_Toc227847034)
-
-[9.3 Audio Confirmation 8](#_Toc227847035)
-
-[9.4 Physical Buttons 8](#_Toc227847036)
-
-[9.5 Fault Recovery 8](#_Toc227847037)
-
-[10 Hardware Requirements 9](#_Toc227847038)
-
-[11 Software Requirements 9](#_Toc227847039)
-
-[11.1 Operating System 9](#_Toc227847040)
-
-[11.2 OTA Updates 9](#_Toc227847041)
-
-[11.3 Protocols and APIs 9](#_Toc227847042)
-
-[11.4 Sound Quality 9](#_Toc227847043)
-
-[12 Security Requirements 10](#_Toc227847044)
-
-[12.1 Secure Boot 10](#_Toc227847045)
-
-[12.2 Cryptographic Profiles 10](#_Toc227847046)
-
-[12.3 Key Custody 10](#_Toc227847047)
-
-[13 Minimum API Support 10](#_Toc227847048)
-
-[14 QUALITY & CONFORMITY OF PRODUCTION (COP) 11](#_Toc227847049)
-
-[14.1 COP Metrics 11](#_Toc227847050)
-
-[14.2 Non-Conformity Classes and Corrective Action (CAPA) 11](#_Toc227847051)
-
-[15 Annex A - Normative Conformance Matrix 12](#_Toc227847052)
-
-[16 ANNEX B - Manufacturing and Quality Checklists (Informative) 14](#_Toc227847053)
-
-[16.1 Bank / Fintech Pre-Order Checklist 14](#_Toc227847054)
-
-[16.2 Pre-Production Checklist (Manufacturer) 14](#_Toc227847055)
-
-[16.3 Sampling Plan and Ongoing Tests 14](#_Toc227847056)
-
-[16.4 Traceability and Serialization 15](#_Toc227847057)
-
-[16.5 PKI and Key Management in Manufacturing 15](#_Toc227847058)
-
-[16.6 OTA Signing and Release Management 15](#_Toc227847059)
-
-[16.7 Field Surveillance and Audit Frequency 15](#_Toc227847060)
-
-[17 ANNEX C (Informative) - Reference Architecture Design 16](#_Toc227847061)
-
-[17.1 Hardware Reference 16](#_Toc227847062)
-
-[17.2 Key interconnects 16](#_Toc227847063)
-
-[17.3 Firmware reference (tasks & modules) 16](#_Toc227847064)
-
-[17.4 Secure Boot & Attestation 17](#_Toc227847065)
-
-[17.5 Provisioning & QR↔Device mapping 17](#_Toc227847066)
-
-[17.6 Mechanical and serviceability 17](#_Toc227847067)
-
-[18 ANNEX D Testing and Certification Process 18](#_Toc227847068)
-
-[18.1 External Standard Complaince 18](#_Toc227847069)
-
-[18.2 Test Cases 18](#_Toc227847070)
+- [ANNEX D Testing and Certification Process](#annex-d-testing-and-certification-process)
+  - [External Standard Complaince](#external-standard-complaince)
+  - [Test Cases](#test-cases)
 
 # Preliminary Declarations
 
